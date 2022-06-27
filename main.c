@@ -7,14 +7,14 @@ void drawGrid(int **grid){ // no aditionals parameters are needed as the grid ca
         printf("\n");
         for (int k = 0; k < 3; k++){
           if(grid[i][k] == 0){
-            printf("  %d%d |   ",k ,i);
+            printf("  %d %d |   ",k ,i);
           }
           else{
               if(grid[i][k] == -1){
-                printf("   O |   ");
+                printf("    O |   ");
               }
               if(grid[i][k] == 1){
-                printf("   X |   ");
+                printf("    X |   ");
               }
 
           }
