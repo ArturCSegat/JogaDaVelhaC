@@ -6,7 +6,18 @@ void drawGrid(int **grid){ // no aditionals parameters are needed as the grid ca
     for (int i = 0; i < 3; i++){
         printf("\n");
         for (int k = 0; k < 3; k++){
-            printf("%d ", grid[i][k]);
+          if(grid[i][k] == 0){
+            printf("  %d%d |   ",k ,i);
+          }
+          else{
+              if(grid[i][k] == -1){
+                printf("   O |   ");
+              }
+              if(grid[i][k] == 1){
+                printf("   X |   ");
+              }
+
+          }
         }
     }
 }
@@ -130,14 +141,6 @@ int main(){
     int winner = 0;
 
     while(winner == 0){
-    printf("\n");
-
-    printf("As coordenadas estao dispostas da seuinte maneita: \n");
-    printf("0 0 | 1 0 | 2 0\n");
-    printf("0 1 | 1 1 | 2 1\n");
-    printf("0 2 | 1 2 | 2 2\n");
-
-    printf("\n");
 
     drawGrid(grid);
     printf("vez do jogador %d \n", curr_player);
@@ -149,7 +152,7 @@ int main(){
     scanf("%d %d", &y, &x);
 
     grid = placeInGrid(grid, x, y, curr_player);
-    
+
     system("cls");
     curr_player *= -1;
 
@@ -164,4 +167,3 @@ int main(){
 
     return 0;
 }
-
