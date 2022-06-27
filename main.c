@@ -125,8 +125,12 @@ int main(){
         }
     }
 
-    
+    int curr_player = -1;
 
+    int winner = 0;
+
+    while(winner == 0){
+    printf("\n");
 
     printf("As coordenadas estao dispostas da seuinte maneita: \n");
     printf("0 0 | 1 0 | 2 0\n");
@@ -136,13 +140,6 @@ int main(){
     printf("\n");
 
     drawGrid(grid);
-
-    int curr_player = -1;
-
-    int winner = 0;
-
-    while(winner == 0){
-    printf("\n");
     printf("vez do jogador %d \n", curr_player);
 
     int x, y;
@@ -152,11 +149,8 @@ int main(){
     scanf("%d %d", &y, &x);
 
     grid = placeInGrid(grid, x, y, curr_player);
-
+    
     system("cls");
-
-    drawGrid(grid);
-
     curr_player *= -1;
 
     winner = checkForWinner(grid);
