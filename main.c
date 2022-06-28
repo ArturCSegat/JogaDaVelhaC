@@ -22,13 +22,10 @@ void drawGrid(int **grid){ // no aditionals parameters are needed as the grid ca
     }
 }
 
-int** placeInGrid(int **grid, int x, int y, int place){
+void placeInGrid(int **grid, int x, int y, int place){
     if(grid[x][y] == 0){
     grid[x][y] = place;
-    return grid;
     }
-    return grid;
-
 }
 
 int compareArrays(int a[], int b[], int len){
@@ -117,6 +114,21 @@ int checkForWinner(int **grid){
             free(b);
     }
 
+    // now to check for a draw
+
+    int empty_counter = 9;
+
+    for (int i = 0; i < 3; i++){
+        for (int k = 0; k < 3; k++){
+          if(grid[i][k] != 0){
+              empty_counter--;
+          }
+        }
+      }
+
+    if(empty_counter == 0){
+      return 2;
+    }
 
     return 0;
 
@@ -151,7 +163,7 @@ int main(){
 
     scanf("%d %d", &y, &x);
 
-    grid = placeInGrid(grid, x, y, curr_player);
+    placeInGrid(grid, x, y, curr_player);
 
     system("cls");
     curr_player *= -1;
@@ -159,7 +171,13 @@ int main(){
     winner = checkForWinner(grid);
     }
 
+    if(winner == 2){
+      printf("\nDeu velha =(");
+    }
+    else{
     printf("\nO vencedor e %d!", winner);
+    }
+
     free(grid);
 
 
