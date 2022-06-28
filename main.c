@@ -39,22 +39,19 @@ int compareArrays(int a[], int b[], int len){
     return 1;
 }
 
-int* getMatrixDiagonal1(int **grid, int n){
-    int *ret = (int*)malloc(n * sizeof(int));
+void getMatrixDiagonal1(int **grid, int n, int * ret){
     for (int i = 0; i < n; i++){
        ret[i] = grid[i][i];
     }
-    return ret;
+
 }
 
-int* getMatrixDiagonal2(int **grid,int n){
-    int *ret = (int*)malloc(n * sizeof(int));
+void getMatrixDiagonal2(int **grid,int n, int * ret){
     int k = n - 1;
     for (int i = 0; i < n; i++){
         ret[i] = grid[i][k];
         k--;
     }
-    return ret;
 }
 int checkForWinner(int **grid){
     int p1[3] = {1, 1, 1};
@@ -88,10 +85,10 @@ int checkForWinner(int **grid){
 
 
         int *a = (int*)malloc(3 * sizeof(int));
-        int *b = a;
+        int *b = (int*)malloc(3 * sizeof(int));
                                                 // gets diagonals
-        a = getMatrixDiagonal1(grid, 3);
-        b = getMatrixDiagonal2(grid, 3);
+        getMatrixDiagonal1(grid, 3, a);
+        getMatrixDiagonal2(grid, 3, b);
 
         if(compareArrays(a, p1, 3) == 1){
             return 1;
