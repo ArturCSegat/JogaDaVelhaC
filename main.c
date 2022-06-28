@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <conio.h>
 
-void drawGrid(int **grid){ // no aditionals parameters are needed as the grid can be assumed to be 3x3
+void drawGrid(int grid[3][3]){ // no aditionals parameters are needed as the grid can be assumed to be 3x3
     for (int i = 0; i < 3; i++){
         printf("\n");
         for (int k = 0; k < 3; k++){
@@ -16,13 +16,12 @@ void drawGrid(int **grid){ // no aditionals parameters are needed as the grid ca
               if(grid[i][k] == 1){
                 printf("    X |   ");
               }
-
           }
         }
     }
 }
 
-void placeInGrid(int **grid, int x, int y, int place){
+void placeInGrid(int grid[3][3], int x, int y, int place){
     if(grid[x][y] == 0){
     grid[x][y] = place;
     }
@@ -39,24 +38,20 @@ int compareArrays(int a[], int b[], int len){
     return 1;
 }
 
-int* getMatrixDiagonal1(int **grid, int n){
-    int *ret = (int*)malloc(n * sizeof(int));
+void getMatrixDiagonal1(int grid[3][3], int n, int ret[]){
     for (int i = 0; i < n; i++){
        ret[i] = grid[i][i];
     }
-    return ret;
 }
 
-int* getMatrixDiagonal2(int **grid,int n){
-    int *ret = (int*)malloc(n * sizeof(int));
+void getMatrixDiagonal2(int grid[3][3], int n, int ret[]){
     int k = n - 1;
     for (int i = 0; i < n; i++){
         ret[i] = grid[i][k];
         k--;
     }
-    return ret;
 }
-int checkForWinner(int **grid){
+int checkForWinner(int grid[3][3]){
     int p1[3] = {1, 1, 1};
     int p2[3] = {-1, -1, -1};
 
@@ -87,11 +82,12 @@ int checkForWinner(int **grid){
         int diag[3];
 
 
-        int *a = (int*)malloc(3 * sizeof(int));
-        int *b = a;
+        int a[3] = {0};
+        int b[3] = {0};
+
                                                 // gets diagonals
-        a = getMatrixDiagonal1(grid, 3);
-        b = getMatrixDiagonal2(grid, 3);
+        getMatrixDiagonal1(grid, 3, a);
+        getMatrixDiagonal2(grid, 3, b);
 
         if(compareArrays(a, p1, 3) == 1){
             return 1;
@@ -110,8 +106,7 @@ int checkForWinner(int **grid){
         if(compareArrays(b, p2, 3) == 1){
             return -1;
         }
-            free(a);
-            free(b);
+
     }
 
     // now to check for a draw
@@ -136,17 +131,9 @@ int checkForWinner(int **grid){
 
 
 int main(){
-    int **grid = (int**)malloc(3 * sizeof(int*)); // define a primeira dimenção da matriz grid como 3
 
-    for (int i = 0; i<3; i++){
-        grid[i] = (int*)malloc(3 * sizeof(int)); // defines a segunda dimeção de grid como 3
-    }
 
-    for (int i = 0; i < 3; i++){
-        for (int k = 0; k < 3; k++){
-            grid[i][k] = 0; // define a grade como uma 3x3 onde todas as casas saõ coupadas por 0 (grade limpa)
-        }
-    }
+    int grid[3][3] = {0};// define a primeira dimenção da matriz grid como 3
 
     int curr_player = -1;
 
@@ -166,6 +153,7 @@ int main(){
     placeInGrid(grid, x, y, curr_player);
 
     system("cls");
+
     curr_player *= -1;
 
     winner = checkForWinner(grid);
@@ -177,9 +165,6 @@ int main(){
     else{
     printf("\nO vencedor e %d!", winner);
     }
-
-    free(grid);
-
 
     getch();
 
