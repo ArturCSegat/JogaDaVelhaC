@@ -175,6 +175,10 @@ int main(){
     printf("\nO vencedor e %d!", winner);
     }
 
+    for (int i = 0; i < 3; i++){
+      free(grid[i]);
+    }
+
     free(grid);
 
 
