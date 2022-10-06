@@ -156,7 +156,7 @@ int main(){
 
     int x, y;
 
-    printf("entre com a cordenada da sua jogada: ");
+    printf("entre com a coordenada da sua jogada: ");
 
     scanf("%d %d", &y, &x);
 
